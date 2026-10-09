@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Identificador de voz para canto</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace">
+        <div class="header">
+          <div>
+            <p class="eyebrow">Espectrogramas + CNN</p>
+            <h1>Identificador de voz para canto</h1>
+          </div>
+          <span id="modelBadge" class="status-pill">Inicializando</span>
+        </div>
+
+        <div class="control-strip" aria-label="Entrada de audio">
+          <label class="file-button">
+            <input id="audioFile" type="file" accept="audio/*" />
+            Cargar audio
+          </label>
+          <button id="recordButton" type="button">Iniciar en vivo</button>
+          <button id="analyzeButton" type="button" disabled>Analizar</button>
+          <label class="file-button secondary">
+            <input id="modelFiles" type="file" accept=".json,.bin" multiple />
+            Cargar modelo CNN
+          </label>
+        </div>
+
+        <div class="analysis-grid">
+          <section class="panel spectrogram-panel" aria-label="Espectrograma mel">
+            <div class="panel-title">
+              <h2>Espectrograma mel</h2>
+              <span id="audioMeta">Sin audio</span>
+            </div>
+            <canvas id="spectrogram" width="768" height="512"></canvas>
+          </section>
+
+          <section class="panel result-panel" aria-label="Resultado vocal">
+            <div class="panel-title">
+              <h2>Resultado</h2>
+              <span id="confidenceLabel">0%</span>
+            </div>
+            <div class="result-meter" aria-hidden="true">
+              <span id="confidenceBar"></span>
+            </div>
+            <p id="primaryLabel" class="primary-label">Esperando audio</p>
+            <p id="recommendation" class="recommendation">
+              Inicia el microfono o carga un archivo de voz para estimar el color vocal recomendado.
+            </p>
+            <dl class="feature-list">
+              <div>
+                <dt>Pitch estimado</dt>
+                <dd id="pitchValue">--</dd>
+              </div>
+              <div>
+                <dt>Centroide espectral</dt>
+                <dd id="centroidValue">--</dd>
+              </div>
+              <div>
+                <dt>Energia</dt>
+                <dd id="energyValue">--</dd>
+              </div>
+            </dl>
+          </section>
+        </div>
+
+        <section class="panel classes-panel" aria-label="Probabilidades por tono">
+          <div class="panel-title">
+            <h2>Probabilidades</h2>
+            <span id="modeLabel">CNN</span>
+          </div>
+          <div id="probabilities" class="probabilities"></div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
