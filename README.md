@@ -2,7 +2,7 @@
 
 Frontend estatico para analizar voz cantada con espectrogramas mel y una CNN en TensorFlow.js.
 
-## Backend VocalTone AI
+## Backend SongAI
 
 Este repositorio tambien incluye un backend FastAPI en `backend/` para recibir archivos WAV, extraer pitch, MFCCs e intensidad con `librosa`, clasificar el tono vocal con un MLP en TensorFlow/Keras y devolver una recomendacion de tonalidad.
 
